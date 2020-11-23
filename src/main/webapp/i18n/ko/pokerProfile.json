@@ -1,0 +1,27 @@
+{
+  "jhipsterApp": {
+    "pokerProfile": {
+      "home": {
+        "title": "Poker Profiles",
+        "createLabel": "Create a new Poker Profile",
+        "createOrEditLabel": "Create or edit a Poker Profile",
+        "notFound": "No Poker Profiles found"
+      },
+      "created": "A new Poker Profile is created with identifier {{ param }}",
+      "updated": "A Poker Profile is updated with identifier {{ param }}",
+      "deleted": "A Poker Profile is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Poker Profile {{ id }}?"
+      },
+      "detail": {
+        "title": "Poker Profile"
+      },
+      "ongameId": "Ongame Id",
+      "nickName": "Nick Name",
+      "regDate": "Reg Date",
+      "lastDate": "Last Date",
+      "photoPath": "Photo Path",
+      "ip": "Ip"
+    }
+  }
+}

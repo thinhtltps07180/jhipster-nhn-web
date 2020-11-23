@@ -1,0 +1,136 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-poker-profile-heading" jhiTranslate="jhipsterApp.pokerProfile.home.createOrEditLabel">Create or edit a Poker Profile</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.ongameId" for="field_ongameId">Ongame Id</label>
+                    <input type="text" class="form-control" name="ongameId" id="field_ongameId"
+                           formControlName="ongameId"/>
+                    <div *ngIf="editForm.get('ongameId')!.invalid && (editForm.get('ongameId')!.dirty || editForm.get('ongameId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ongameId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ongameId')?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 4 }">
+                        This field is required to be at least 4 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ongameId')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.nickName" for="field_nickName">Nick Name</label>
+                    <input type="text" class="form-control" name="nickName" id="field_nickName"
+                           formControlName="nickName"/>
+                    <div *ngIf="editForm.get('nickName')!.invalid && (editForm.get('nickName')!.dirty || editForm.get('nickName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nickName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nickName')?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 4 }">
+                        This field is required to be at least 4 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nickName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.regDate" for="field_regDate">Reg Date</label>
+                    <div class="input-group">
+                        <input id="field_regDate" type="text" class="form-control" name="regDate" ngbDatepicker #regDateDp="ngbDatepicker" formControlName="regDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="regDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('regDate')!.invalid && (editForm.get('regDate')!.dirty || editForm.get('regDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('regDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.lastDate" for="field_lastDate">Last Date</label>
+                    <div class="input-group">
+                        <input id="field_lastDate" type="text" class="form-control" name="lastDate" ngbDatepicker #lastDateDp="ngbDatepicker" formControlName="lastDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="lastDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('lastDate')!.invalid && (editForm.get('lastDate')!.dirty || editForm.get('lastDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.photoPath" for="field_photoPath">Photo Path</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('photoPathContentType')!.value + ';base64,' + editForm.get('photoPath')!.value" style="max-height: 100px;" *ngIf="editForm.get('photoPath')!.value" alt="pokerProfile image"/>
+                        <div *ngIf="editForm.get('photoPath')!.value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{ editForm.get('photoPathContentType')!.value }}, {{ byteSize(editForm.get('photoPath')!.value) }}</span>
+                            <button type="button" (click)="clearInputImage('photoPath', 'photoPathContentType', 'file_photoPath')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_photoPath" (change)="setFileData($event, 'photoPath', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="photoPath" id="field_photoPath"
+                           formControlName="photoPath"/>
+                    <input type="hidden" class="form-control" name="photoPathContentType" id="field_photoPathContentType"
+                           formControlName="photoPathContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.pokerProfile.ip" for="field_ip">Ip</label>
+                    <input type="text" class="form-control" name="ip" id="field_ip"
+                           formControlName="ip"/>
+                    <div *ngIf="editForm.get('ip')!.invalid && (editForm.get('ip')!.dirty || editForm.get('ip')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ip')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ip')?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 4 }">
+                        This field is required to be at least 4 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ip')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

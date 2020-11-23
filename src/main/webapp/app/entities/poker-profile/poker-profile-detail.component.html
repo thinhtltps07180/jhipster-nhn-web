@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pokerProfile">
+            <h2><span jhiTranslate="jhipsterApp.pokerProfile.detail.title">Poker Profile</span> {{ pokerProfile.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.ongameId">Ongame Id</span></dt>
+                <dd>
+                    <span>{{ pokerProfile.ongameId }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.nickName">Nick Name</span></dt>
+                <dd>
+                    <span>{{ pokerProfile.nickName }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.regDate">Reg Date</span></dt>
+                <dd>
+                    <span>{{ pokerProfile.regDate | date }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.lastDate">Last Date</span></dt>
+                <dd>
+                    <span>{{ pokerProfile.lastDate | date }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.photoPath">Photo Path</span></dt>
+                <dd>
+                    <div *ngIf="pokerProfile.photoPath">
+                        <a (click)="openFile(pokerProfile.photoPathContentType, pokerProfile.photoPath)">
+                            <img [src]="'data:' + pokerProfile.photoPathContentType + ';base64,' + pokerProfile.photoPath" style="max-width: 100%;" alt="pokerProfile image"/>
+                        </a>
+                        {{ pokerProfile.photoPathContentType }}, {{ byteSize(pokerProfile.photoPath) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.ip">Ip</span></dt>
+                <dd>
+                    <span>{{ pokerProfile.ip }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterApp.pokerProfile.ip">Country</span></dt>
+                <dd>
+
+                        <img [src]="'http://api.hostip.info/flag.php?ip='+pokerProfile.ip"  alt="IP Address Lookup">
+
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/poker-profile', pokerProfile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
